@@ -63,12 +63,14 @@ public class Score : MonoBehaviour
         {
             Data.GameOver = true;
             p1Winscreen.SetActive(true);
+            Time.timeScale = 0;
         }
 
         if(curP2Score == maxPoints)
         {
             Data.GameOver = true;
             p2Winscreen.SetActive(true);
+            Time.timeScale = 0;
         }
 
     }

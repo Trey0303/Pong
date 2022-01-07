@@ -46,11 +46,13 @@ public class Pause : MonoBehaviour
 
         if (Data.Paused)
         {
+            Time.timeScale = 0;
             pauseMenu.SetActive(true);
         }
         else
         {
             pauseMenu.SetActive(false);
+            Time.timeScale = 1;
         }
 
         

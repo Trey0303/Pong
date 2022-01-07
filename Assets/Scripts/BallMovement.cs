@@ -16,9 +16,11 @@ public class BallMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = Vector2.right * speed;
+        //rb.velocity = Vector2.right * speed;
 
         startPosition = this.transform.position;
+
+        transform.rotation = Quaternion.Euler(Vector3.forward * 180);
 
     }
 
@@ -28,36 +30,34 @@ public class BallMovement : MonoBehaviour
         //var vel = rb.velocity;
         if (!Data.Paused && !Data.GameOver)
         {
-            if (rb.velocity == new Vector2(0,0))
-            {
-                rb.velocity = Vector2.right * speed;
-            }
+            transform.position += transform.right * speed * Time.deltaTime;
 
-            var pos = transform.position;
             //Debug.Log(pos.y - 105);
-            if (pos.x > objectRectTransform.rect.width)//right
+            if (transform.position.x > objectRectTransform.rect.width)//right
             {
-                pos = startPosition;
+                transform.position = startPosition;
                 Data.P1Score++;
             }
-            else if (pos.x < 0.01)//left
+            if (transform.position.x < 0)//left
             {
-                pos = startPosition;
+                transform.position = startPosition;
                 Data.P2Score++;
                 //Debug.Log(playerRectTransform.rect.position.y);
             }
-            //Debug.Log(playerRectTransform.rect.position.y);
-            transform.position = pos;
+            if (transform.position.y > objectRectTransform.rect.height)//right
+            {
+                transform.position = startPosition;
+                //Data.P1Score++;
+            }
+            if (transform.position.y < -100)//left
+            {
+                transform.position = startPosition;
+                //Data.P2Score++;
+                //Debug.Log(playerRectTransform.rect.position.y);
+            }
+            //Debug.Log(transform.position.y);
+            //transform.position = pos;
         }
-        else
-        {
-            rb.velocity = new Vector2(0, 0);
-
-            //vel = new Vector2(0, 0);
-        }
-        //rb.velocity = vel;
-
-        
 
     }
 
@@ -66,14 +66,24 @@ public class BallMovement : MonoBehaviour
         if(collision.gameObject.tag == "Player2")
         {
             Debug.Log("hit P2");
-            transform.rotation = Quaternion.Euler(Vector3.forward * 15);
+
+            //int randAngle = Random.Range(130, 180);
+
+            transform.rotation = Quaternion.Euler(Vector3.forward * 230);
             //rb.velocity = new Vector2(0, 0);
-            rb.velocity = Vector2.left * speed;
+            //rb.velocity = Vector2.left * speed;
         }
         if (collision.gameObject.tag == "Player")
         {
             Debug.Log("hit P1");
-            rb.velocity = Vector2.right * speed;
+
+            //transform.position = new Vector2(collision.gameObject.transform.position.x + 1, transform.position.y);
+            //int randAngle = Random.Range(-180, -200);
+
+            //Debug.Log(randAngle);
+
+            transform.rotation = Quaternion.Euler(Vector3.forward);
+            //rb.velocity = Vector2.right * speed * randAngle;
         }
     }
 }
