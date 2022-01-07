@@ -8,18 +8,18 @@ public class PaddleMovement : MonoBehaviour
     //player movement Speed
     public int speed = 10;
     public RectTransform objectRectTransform;
+    public RectTransform playerRectTransform;
 
-    float borderY = 0;
+    //float borderY = 0;
 
     private void Start()
     {
-        borderY = objectRectTransform.rect.height;
         
     }
     // Update is called once per frame
     void Update()
     {
-        if (!Data.Paused)
+        if (!Data.Paused && !Data.GameOver)
         {
             RectTransform thisRectTransform = gameObject.GetComponent<RectTransform>();
 
@@ -40,16 +40,24 @@ public class PaddleMovement : MonoBehaviour
             rb.velocity = vel;
 
             var pos = transform.position;
-            if (pos.y + 2f  > objectRectTransform.rect.height)
+            //Debug.Log(pos.y - 105);
+            if (pos.y + 105  > objectRectTransform.rect.height)//top
             {
-                pos.y = borderY - 10;
+                pos.y = objectRectTransform.rect.height - 105;
             }
-            else if (pos.y  < objectRectTransform.rect.height - objectRectTransform.rect.height)
+            else if ( pos.y - 100 < 0.01)//bot
             {
-                pos.y = (objectRectTransform.rect.height - objectRectTransform.rect.height) + 10;
+                pos.y = 105;
+               //Debug.Log(playerRectTransform.rect.position.y);
             }
+            //Debug.Log(playerRectTransform.rect.position.y);
             transform.position = pos;
+            //Debug.Log("transformPos: " + transform.position);
 
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, 0);
         }
     }
 }
