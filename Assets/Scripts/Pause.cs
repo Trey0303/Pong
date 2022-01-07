@@ -33,7 +33,7 @@ public class Pause : MonoBehaviour
         //pause/unpause
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("pause input read");
+            //Debug.Log("pause input read");
             if (Data.Paused)
             {
                 Data.Paused = false;
