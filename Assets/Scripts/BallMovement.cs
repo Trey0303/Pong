@@ -20,7 +20,7 @@ public class BallMovement : MonoBehaviour
 
         startPosition = this.transform.position;
 
-        transform.rotation = Quaternion.Euler(Vector3.forward * 180);
+        //transform.rotation = Quaternion.Euler(Vector3.forward * 180);
 
     }
 
@@ -36,22 +36,24 @@ public class BallMovement : MonoBehaviour
             if (transform.position.x > objectRectTransform.rect.width)//right
             {
                 transform.position = startPosition;
+                transform.rotation = Quaternion.Euler(Vector3.forward * 0);
                 Data.P1Score++;
             }
             if (transform.position.x < 0)//left
             {
                 transform.position = startPosition;
+                transform.rotation = Quaternion.Euler(Vector3.forward * 180);
                 Data.P2Score++;
                 //Debug.Log(playerRectTransform.rect.position.y);
             }
-            if (transform.position.y > objectRectTransform.rect.height)//right
+            if (transform.position.y > objectRectTransform.rect.height)//top
             {
-                transform.position = startPosition;
+                transform.rotation = Quaternion.Euler(Vector3.forward * Random.Range(200, 310));
                 //Data.P1Score++;
             }
-            if (transform.position.y < -100)//left
+            if (transform.position.y < 0)//bot
             {
-                transform.position = startPosition;
+                transform.rotation = Quaternion.Euler(Vector3.forward * Random.Range(65, 130));
                 //Data.P2Score++;
                 //Debug.Log(playerRectTransform.rect.position.y);
             }
@@ -65,7 +67,7 @@ public class BallMovement : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player2")
         {
-            Debug.Log("hit P2");
+           //Debug.Log("hit P2");
 
             //int randAngle = Random.Range(130, 180);
 
@@ -75,14 +77,14 @@ public class BallMovement : MonoBehaviour
         }
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("hit P1");
+            //Debug.Log("hit P1");
 
             //transform.position = new Vector2(collision.gameObject.transform.position.x + 1, transform.position.y);
-            //int randAngle = Random.Range(-180, -200);
+            //int randAngle = Random.Range(340, 45);
 
             //Debug.Log(randAngle);
 
-            transform.rotation = Quaternion.Euler(Vector3.forward);
+            transform.rotation = Quaternion.Euler(Vector3.forward * Random.Range(5, 45));
             //rb.velocity = Vector2.right * speed * randAngle;
         }
     }
